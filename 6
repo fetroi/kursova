@@ -1,0 +1,96 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <Windows.h>
+using namespace std;
+
+class Flight 
+{
+private:
+    string flightNumber;
+    string planeName;
+    string departure;
+    string destination;
+    string departureTime;
+    string arrivalTime;
+    double ticketPrice;
+
+public:
+    Flight(string flightNumber, string planeName, string departure, string destination,
+        string departureTime, string arrivalTime, double ticketPrice)
+    {
+        this->flightNumber = flightNumber;
+        this->planeName = planeName;
+        this->departure = departure;
+        this->destination = destination;
+        this->departureTime = departureTime;
+        this->arrivalTime = arrivalTime;
+        this->ticketPrice = ticketPrice;
+    }
+
+    string getFlightNumber()
+    {
+        return flightNumber;
+    }
+    void display() 
+    {
+        cout << "Flight " << flightNumber << ": " << planeName << " від " << departure
+            << " до " << destination << " відправлення о " << departureTime
+            << " і прибуття в " << arrivalTime << ", ціна квитка: грн." << ticketPrice << endl;
+    }
+};
+class Airport 
+{
+private:
+    vector<Flight> flights;
+
+public:
+    void addFlight(Flight flight) 
+    {
+        flights.push_back(flight);
+    }
+    void removeFlight(string flightNumber)
+    {
+        for (auto it = flights.begin(); it != flights.end(); ++it) 
+        {
+            if (it->getFlightNumber() == flightNumber)
+            {
+                flights.erase(it);
+                break;
+            }
+        }
+    }
+    void viewFlights() 
+    {
+        for (Flight& flight : flights) 
+        {
+            flight.display();
+        }
+    }
+};
+int main() 
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    Airport airport;
+
+    // Додавання рейсів
+    Flight flight1("UA101", "Боїнг 737", "Київ", "Лондон", "10:00", "12:00", 250);
+    Flight flight2("UA102", "аеробус А320", "Київ", "Париж", "14:00", "16:00", 300);
+    airport.addFlight(flight1);
+    airport.addFlight(flight2);
+
+    // Перегляд всіх рейсів
+    cout << "Всі рейси:" << endl;
+    airport.viewFlights();
+
+    // Видалення рейсу
+    airport.removeFlight("UA101");
+
+    // Перегляд всіх рейсів після видалення
+    cout << "\nВсі рейси після видалення рейсу UA101:" << endl;
+    airport.viewFlights();
+
+    return 0;
+}
