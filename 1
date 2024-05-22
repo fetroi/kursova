@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+class Flight {
+public:
+    std::string flightNumber;
+    std::string planeName;
+    std::string departure;
+    std::string destination;
+    std::string departureTime;
+    std::string arrivalTime;
+    double ticketPrice;
+
+    Flight(std::string fn, std::string pn, std::string dep, std::string dest, std::string depTime, std::string arrTime, double price)
+        : flightNumber(fn), planeName(pn), departure(dep), destination(dest), departureTime(depTime), arrivalTime(arrTime), ticketPrice(price) {}
+};
+
+class Airport {
+private:
+    std::vector<Flight> flights;
+
+public:
+    void addFlight(const Flight& flight) {
+        flights.push_back(flight);
+    }
+};
