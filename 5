@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Flight {
+private:
+    string flight_number;
+    string plane_name;
+    string departure;
+    string destination;
+    string departure_time;
+    string arrival_time;
+    double ticket_price;
+
+public:
+    Flight(string fn, string pn, string dep, string dest, string dep_time, string arr_time, double price)
+        : flight_number(fn), plane_name(pn), departure(dep), destination(dest), departure_time(dep_time), arrival_time(arr_time), ticket_price(price) {}
+
+    string getFlightNumber() const {
+        return flight_number;
+    }
+
+    string toString() const {
+        return "Flight " + flight_number + ": " + plane_name + " from " + departure + " to " + destination + " departing at " + departure_time + " and arriving at " + arrival_time + ", ticket price: " + to_string(ticket_price);
+    }
+};
+
+class Airport {
+private:
+    vector<Flight> flights;
+
+public:
+    void addFlight(const Flight& flight) {
+        flights.push_back(flight);
+    }
+
+    void removeFlight(const string& flight_number) {
+        flights.erase(remove_if(flights.begin(), flights.end(), [&flight_number](const Flight& flight) {
+            return flight.getFlightNumber() == flight_number;
+            }), flights.end());
+    }
+
+    void viewFlights() const {
+        for (const auto& flight : flights) {
+            cout << flight.toString() << endl;
+        }
+    }
+};
+
+// Головна функція програми
+int main() {
+    Airport airport;
+
+    // Додавання рейсів
+    Flight flight1("UA101", "Boeing 737", "Kyiv", "London", "10:00", "12:00", 250);
+    Flight flight2("UA102", "Airbus A320", "Kyiv", "Paris", "14:00", "16:00", 300);
+    airport.addFlight(flight1);
+    airport.addFlight(flight2);
+
+    // Перегляд всіх рейсів
+    cout << "Всі рейси:" << endl;
+    airport.viewFlights();
+
+    // Видалення рейсу
+    airport.removeFlight("UA101");
+
+    // Перегляд всіх рейсів після видалення
+    cout << "\nВсі рейси після видалення рейсу UA101:" << endl;
+    airport.viewFlights();
+
+    return 0;
+}
