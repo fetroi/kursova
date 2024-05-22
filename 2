@@ -1,0 +1,18 @@
+class Airport {
+private:
+    std::vector<Flight> flights;
+
+public:
+    void addFlight(const Flight& flight) {
+        flights.push_back(flight);
+    }
+
+    void removeFlight(const std::string& flightNumber) {
+        for (auto it = flights.begin(); it != flights.end(); ++it) {
+            if (it->flightNumber == flightNumber) {
+                flights.erase(it);
+                break;
+            }
+        }
+    }
+};
