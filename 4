@@ -1,0 +1,23 @@
+int main() 
+{
+    Airport airport;
+
+    // Додавання рейсів
+    Flight flight1("UA101", "Boeing 737", "Kyiv", "London", "10:00", "12:00", 250);
+    Flight flight2("UA102", "Airbus A320", "Kyiv", "Paris", "14:00", "16:00", 300);
+    airport.addFlight(flight1);
+    airport.addFlight(flight2);
+
+    // Перегляд всіх рейсів
+    std::cout << "Всі рейси:" << std::endl;
+    airport.viewFlights();
+
+    // Видалення рейсу
+    airport.removeFlight("UA101");
+
+    // Перегляд всіх рейсів після видалення
+    std::cout << "\nВсі рейси після видалення рейсу UA101:" << std::endl;
+    airport.viewFlights();
+
+    return 0;
+}
